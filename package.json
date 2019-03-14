@@ -1,0 +1,30 @@
+{
+  "name": "positional",
+  "version": "1.0.0",
+  "description": "Making it easy to work with positional flat files.",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^4.0.8"
+  },
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pedroppinheiro/positional.git"
+  },
+  "keywords": [
+    "positional",
+    "flat",
+    "files",
+    "tool"
+  ],
+  "author": "Pedro Pinheiro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pedroppinheiro/positional/issues"
+  },
+  "homepage": "https://github.com/pedroppinheiro/positional#readme"
+}
