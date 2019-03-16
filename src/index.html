@@ -3,10 +3,25 @@
   <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <style>
+      html, body {
+        height: 100%;
+      }
+      main {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-flow: column;
+      }
+    </style>
   </head>
   <body>
-    <h1>Hello World!</h1>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
+
+    <main>
+      <h1 class="display-4">Welcome to positional!</h1>
+      <p class="lead">Start by opening a file on the "File" menu.</p>
+    </main>
 
     <script>
       require("./assets/js/import-jquery-and-bootstrap")
