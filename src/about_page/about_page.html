@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>About</title>
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <style>
+      main {
+        margin: 10px 0;
+      }
+
+      .top-section {
+        justify-content: center;
+        background-color: rgb(83, 0, 130);
+        font-size: 32px;
+        max-width: 26rem;
+        line-height: 1.25em;
+        color: rgb(255, 255, 255);
+      }
+
+      .top-section p {
+        margin: 5px 0;
+      }
+    </style>
+  </head>
+  <body class="container-fluid">
+
+    <script> const { app } = require('electron').remote </script>
+    <section class="top-section row">
+      <p class="text-center">About <script>document.write(app.getName())</script></p>
+    </section>
+
+    <main>
+        <p>Thanks for using my app!</p>
+
+        <p><script>document.write(app.getName())</script> makes it easy to work with positional flat files.</p>
+
+        <ul>
+          <li>Version Number: <script>document.write(app.getVersion())</script></li>
+          <li>Node.js: <script>document.write(process.versions.node)</script>
+          <li>Chromium: <script>document.write(process.versions.chrome)</script></li>
+          <li>Electron: <script>document.write(process.versions.electron)</script></li>
+          <li>Platform: <script>document.write(process.platform)</script></li>
+        </ul>
+    </main>
+
+    <section class="text-center">
+      <button type="button" class="btn btn-outline-primary" onclick="javascript:window.close();">Close</button>
+    </section>
+
+    <script>
+      require("../assets/js/import-jquery-and-bootstrap")
+    </script>
+  </body>
+</html>
