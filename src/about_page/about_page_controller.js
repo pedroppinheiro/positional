@@ -1,11 +1,11 @@
 const { BrowserWindow } = require('electron');
 
 class AboutPageController {
-  constructor(parentWindow) {
+  constructor() {
     this.aboutPageWindowOptions = {
       width: 400,
       height: 350,
-      parent: parentWindow,
+      parent: null,
       modal: true,
       show: false,
       movable: false,
@@ -15,7 +15,8 @@ class AboutPageController {
     };
   }
 
-  renderAboutPage() {
+  renderAboutPage(browserWindow) {
+    this.aboutPageWindowOptions.parent = browserWindow;
     this.aboutPageWindow = new BrowserWindow(this.aboutPageWindowOptions);
     this.aboutPageWindow.loadFile('src/about_page/about_page.html');
 
