@@ -1,4 +1,6 @@
-const MenuActions = require('./menu_actions');
+const MenuController = require('./menu_controller');
+
+const menuController = new MenuController();
 // the menu template must be an array
 const menuTemplate = [
 
@@ -7,7 +9,7 @@ const menuTemplate = [
     submenu: [
       {
         label: 'Upload File',
-        click(menuItem, browserWindow) { MenuActions.uploadFileAction(browserWindow); },
+        click(menuItem, browserWindow) { menuController.uploadFileAction(browserWindow); },
       },
       { type: 'separator' },
       { role: 'quit' },
@@ -49,15 +51,15 @@ const menuTemplate = [
     submenu: [
       {
         label: 'About',
-        click(menuItem, browserWindow) { MenuActions.aboutAction(browserWindow); },
+        click(menuItem, browserWindow) { menuController.aboutAction(browserWindow); },
       },
       {
         label: 'Github Page',
-        click() { MenuActions.githubPageAction(); },
+        click() { menuController.githubPageAction(); },
       },
       {
         label: 'View README',
-        click() { MenuActions.viewReadmeAction(); },
+        click() { menuController.viewReadmeAction(); },
       },
     ],
   },
