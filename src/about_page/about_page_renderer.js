@@ -1,6 +1,6 @@
 const { BrowserWindow } = require('electron');
 
-let aboutPageWindow;
+let aboutPageWindow = null;
 
 function createAboutPageWindow(parentWindow) {
   aboutPageWindow = new BrowserWindow({

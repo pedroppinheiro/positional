@@ -1,9 +1,9 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow } = require('electron'); // https://electronjs.org/docs/api/remote
+const { app, BrowserWindow, Menu } = require('electron'); // https://electronjs.org/docs/api/remote
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow;
+let mainWindow = null;
 
 function createWindow() {
   // Create the browser window.
@@ -30,6 +30,13 @@ function createWindow() {
   });
 }
 
+function buildMenu(template) {
+  const menu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(menu);
+}
+
+buildMenu(require('./menu/menu_template'));
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -39,18 +46,3 @@ app.on('ready', createWindow);
 app.on('window-all-closed', () => {
   app.quit();
 });
-
-app.on('activate', () => {
-
-});
-
-// function executeJavaScript(script) {
-//   mainWindow.webContents.executeJavaScript(script)
-// }
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
-
-const buildMenu = require('./menu/buildMenu.js');
-
-buildMenu();

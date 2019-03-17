@@ -1,13 +1,15 @@
-const { shell } = require('electron');
-
-const createAboutPageWindow = require('../about_page/about_page_renderer');
+const MenuActions = require('./menu_actions');
 // the menu template must be an array
 const menuTemplate = [
 
   {
     label: 'File',
     submenu: [
-      { label: 'Upload File' },
+      {
+        label: 'Upload File',
+        click(menuItem, browserWindow) { MenuActions.uploadFileAction(browserWindow); },
+      },
+      { type: 'separator' },
       { role: 'quit' },
     ],
   },
@@ -47,15 +49,15 @@ const menuTemplate = [
     submenu: [
       {
         label: 'About',
-        click(menuItem, browserWindow) { createAboutPageWindow(browserWindow); },
+        click(menuItem, browserWindow) { MenuActions.aboutAction(browserWindow); },
       },
       {
         label: 'Github Page',
-        click() { shell.openExternal('https://github.com/pedroppinheiro/positional'); },
+        click() { MenuActions.githubPageAction(); },
       },
       {
         label: 'View README',
-        click() { shell.openExternal('https://github.com/pedroppinheiro/positional/blob/master/README.md'); },
+        click() { MenuActions.viewReadmeAction(); },
       },
     ],
   },
