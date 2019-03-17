@@ -8,6 +8,11 @@ const menuTemplate = [
     label: 'File',
     submenu: [
       {
+        label: 'Welcome page',
+        click(menuItem, browserWindow) { menuController.welcomePageAction(browserWindow); },
+      },
+      { type: 'separator' },
+      {
         label: 'Upload File',
         click(menuItem, browserWindow) { menuController.uploadFileAction(browserWindow); },
       },

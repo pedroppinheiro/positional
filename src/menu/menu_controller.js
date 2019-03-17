@@ -7,8 +7,13 @@ class MenuController {
     this.aboutPageController = new AboutPageController();
   }
 
+  welcomePageAction(browserWindow) {
+    browserWindow.webContents.send('renderPage', 'welcome_page_section');
+  }
+
   uploadFileAction(browserWindow) {
-    console.log(dialog.showOpenDialog(browserWindow, { title: 'Título' }));
+    browserWindow.webContents.send('renderPage', 'positional_file_section');
+    // console.log(dialog.showOpenDialog(browserWindow, { title: 'Título' }));
   }
 
   aboutAction(browserWindow) {

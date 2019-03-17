@@ -1,30 +1,22 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <style>
-      html, body {
-        height: 100%;
-      }
-      main {
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-flow: column;
-      }
-    </style>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="import" href="welcome_page/welcome_page.html">
+    <link rel="import" href="positional_file_page/positional_file.html">
   </head>
   <body>
 
-    <main>
-      <h1 class="display-4">Welcome to positional!</h1>
-      <p class="lead">Start by opening a file on the "File" menu.</p>
+    <main id="content_container">
+
     </main>
 
     <script>
       require("./assets/js/import-jquery-and-bootstrap")
+      require("./assets/js/navigation_controller")
     </script>
   </body>
 </html>
