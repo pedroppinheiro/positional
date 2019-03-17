@@ -1,3 +1,8 @@
+/**
+ * This controller runs on the renderer process.
+ * Its logic was based on the code presented in this tutorial:
+ *     https://www.christianengvall.se/electron-app-navigation/
+ */
 const { ipcRenderer } = require('electron');
 
 class NavigationController {
@@ -6,13 +11,12 @@ class NavigationController {
       sectionTemplate: '.section_template',
       contentContainer: '#content_container',
       startSection: '#welcome_page_section',
-      // startSectionMenuItem: '#welcome-menu',
     };
     this.importSectionsToDOM();
     this.showStartSection();
 
-    ipcRenderer.on('renderPage', (event, sectionId) => {
-      this.handleMenuControllerActions(sectionId);
+    ipcRenderer.on('renderPage', (event, data) => {
+      this.showSection(data.sectionId);
     });
   }
 
@@ -26,13 +30,18 @@ class NavigationController {
   }
 
   showSection(sectionId) {
+    if (!sectionId) {
+      console.error('No sectionId defined');
+      return;
+    }
+
     this.hideAllSections();
 
     let section = null;
     if (sectionId.startsWith('#')) {
       section = document.querySelector(sectionId);
     } else {
-      section = document.getElementById(sectionId); 
+      section = document.getElementById(sectionId);
     }
 
     if (!section) {
@@ -51,15 +60,6 @@ class NavigationController {
 
   showStartSection() {
     this.showSection(this.constants.startSection);
-    // $(this.constants.startSectionMenuItem).click();
-    // $(this.constants.startSection).show();
-    // $(this.constants.startSection + ' section').show();
-  }
-
-  handleMenuControllerActions(sectionId) {
-    if (sectionId) {
-      this.showSection(sectionId);
-    }
   }
 }
 
