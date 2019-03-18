@@ -15,8 +15,8 @@ class NavigationController {
     this.importSectionsToDOM();
     this.showStartSection();
 
-    ipcRenderer.on('renderPage', (event, data) => {
-      this.showSection(data.sectionId);
+    ipcRenderer.on('renderPage', (event, sectionId) => {
+      this.showSection(sectionId);
     });
   }
 

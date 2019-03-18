@@ -8,16 +8,14 @@ class MenuController {
   }
 
   welcomePageAction(browserWindow) {
-    browserWindow.webContents.send('renderPage', { sectionId: 'welcome_page_section' });
+    browserWindow.webContents.send('renderPage', 'welcome_page_section');
   }
 
   uploadFileAction(browserWindow) {
     const filePath = dialog.showOpenDialog(browserWindow, { title: 'Select a positional file' });
     if (filePath) {
-      browserWindow.webContents.send('renderPage', {
-        sectionId: 'positional_file_section',
-        uploadedFilePath: filePath,
-      });
+      browserWindow.webContents.send('renderPage', 'positional_file_section');
+      browserWindow.webContents.send('fileUpload', filePath);
     }
   }
 
