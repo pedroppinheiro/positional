@@ -6,17 +6,19 @@ let positionalFileControler = null;
 class PositionalFileController {
   constructor(filePath) {
     this.showFileContent(filePath);
+    this.fileContent = null;
   }
 
   showFileContent(filePath) {
     const fileContentDiv = document.getElementById('file_content');
-    fs.readFile(filePath, 'utf-8', (err, data) => {
+    fs.readFileSync(filePath, 'utf-8', (err, data) => {
       if (err) {
         console.error(`An error ocurred reading the file: ${err.message}`);
         return;
       }
 
-      fileContentDiv.textContent = data;
+      this.fileContent = data;
+      fileContentDiv.textContent = this.fileContent;
     });
   }
 }
