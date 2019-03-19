@@ -1,25 +1,45 @@
 const { ipcRenderer } = require('electron');
 const fs = require('fs');
+const DemarkationService = require('./services/demarkation_service');
 
 let positionalFileControler = null;
 
 class PositionalFileController {
   constructor(filePath) {
-    this.showFileContent(filePath);
-    this.fileContent = null;
+    this.fileContent = this.readFileContent(filePath);
+    this.contentDivId = document.getElementById('file_content');
+    this.renderTextOnNode(this.fileContent, this.contentDivId);
+    this.teste();
   }
 
-  showFileContent(filePath) {
-    const fileContentDiv = document.getElementById('file_content');
-    fs.readFileSync(filePath, 'utf-8', (err, data) => {
+  readFileContent(filePath) {
+    return fs.readFileSync(filePath, 'utf-8', (err) => {
       if (err) {
         console.error(`An error ocurred reading the file: ${err.message}`);
-        return;
       }
-
-      this.fileContent = data;
-      fileContentDiv.textContent = this.fileContent;
     });
+  }
+
+  renderTextOnNode(text, node, shouldEscapeText = true) {
+    if (shouldEscapeText) {
+      node.textContent = text;
+    } else {
+      node.innerHTML = text;
+    }
+  }
+
+  teste() {
+    let finalResult = '';
+
+    this.fileContent.split('\n').forEach((line) => {
+      finalResult += DemarkationService.demarkFieldOnText({
+        name: 'myField',
+        initialPosition: 14,
+        finalPosition: 17,
+      }, line) + "\n";
+    });
+
+    this.renderTextOnNode(finalResult, this.contentDivId, false);
   }
 }
 

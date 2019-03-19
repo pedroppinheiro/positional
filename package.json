@@ -20,12 +20,13 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.11.0",
+    "jasmine": "^3.3.1",
     "less": "^3.9.0"
   },
   "scripts": {
     "less": "lessc src/assets/css/main.less src/assets/css/main.css",
     "start": "npm run less && electron .",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node jasmine_runner.js",
     "package-windows": "npm run less && electron-packager . --overwrite --asar --platform=win32 --arch=x64 --prune=true --out=release-builds",
     "package-linux": "npm run less && electron-packager . --overwrite --asar --platform=linux --arch=x64 --prune=true --out=release-builds",
     "package": "npm run package-windows && npm run package-linux",
