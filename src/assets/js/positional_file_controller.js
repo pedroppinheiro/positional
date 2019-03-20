@@ -46,3 +46,22 @@ class PositionalFileController {
 ipcRenderer.on('fileUpload', (event, data) => {
   positionalFileControler = new PositionalFileController(data[0]);
 });
+
+ipcRenderer.on('resetZoomAction', (event, data) => {
+  const fileContentNode = document.getElementById('file_content');
+  fileContentNode.style.fontSize = window.getComputedStyle(document.body).getPropertyValue('--default-file-content-font-size');
+});
+
+ipcRenderer.on('zoomInAction', (event, data) => {
+  const fileContentNode = document.getElementById('file_content');
+  const style = window.getComputedStyle(fileContentNode, null).getPropertyValue('font-size');
+  const currentSize = parseFloat(style);
+  fileContentNode.style.fontSize = `${(currentSize + 4)}px`;
+});
+
+ipcRenderer.on('zoomOutAction', (event, data) => {
+  const fileContentNode = document.getElementById('file_content');
+  const style = window.getComputedStyle(fileContentNode, null).getPropertyValue('font-size');
+  const currentSize = parseFloat(style);
+  fileContentNode.style.fontSize = `${(currentSize - 4)}px`;
+});

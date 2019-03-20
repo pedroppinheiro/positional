@@ -1,3 +1,7 @@
+:root {
+  --default-file-content-font-size: 14px;
+}
+
 @full-height: 100%;
 
 html, body, main, section {
@@ -14,8 +18,24 @@ html, body, main, section {
 #positional_file_section {
   #file_content {
     font-family: 'Courier New', Courier, monospace;
-    font-size: 14px;
-    white-space: pre-wrap;
+    font-size: var(--default-file-content-font-size);
+    white-space: pre;
+    overflow-x: scroll;
+    overflow-y: visible;
+    height: 100%;
+  }
+
+  #menu {
+    width: 15%;
+    height: 100%;
+    float: left;
+
+    ul {
+      padding:0px;
+      margin:0px;
+      background-color:#EDEDED;
+      list-style:none;
+    }
   }
 
   .myField {
