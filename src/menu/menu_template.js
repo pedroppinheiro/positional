@@ -14,13 +14,16 @@ const menuTemplate = [
       { type: 'separator' },
       {
         label: 'Upload File',
+        accelerator: 'Control+o',
         click(menuItem, browserWindow) { menuController.uploadFileAction(browserWindow); },
       },
       { type: 'separator' },
       {
-        id: 'add_new_rule',
-        label: 'Add new rule',
+        id: 'addNewRuleMenuItemId',
+        label: 'Add New Field',
         enabled: false,
+        accelerator: 'Control+n',
+        click(menuItem, browserWindow) { menuController.addNewRuleAction(browserWindow); },
       },
       { type: 'separator' },
       { role: 'quit' },
@@ -45,8 +48,8 @@ const menuTemplate = [
   {
     label: 'View',
     submenu: [
-      { role: 'reload' },
-      { role: 'forcereload' },
+      // { role: 'reload' },
+      // { role: 'forcereload' },
       { role: 'toggledevtools' },
       { type: 'separator' },
       {

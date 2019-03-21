@@ -2,7 +2,7 @@ if (typeof module === 'object') {
   window.module = module; module = undefined;
 }
 
-const $ = require('jquery');
+window.$ = require('jquery');
 require('popper.js');
 require('bootstrap');
 

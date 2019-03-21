@@ -2,8 +2,6 @@ const { ipcRenderer } = require('electron');
 const fs = require('fs');
 const DemarkationService = require('./services/demarkation_service');
 
-let positionalFileControler = null;
-
 class PositionalFileController {
   constructor(filePath) {
     this.fileContent = this.readFileContent(filePath);
@@ -41,10 +39,14 @@ class PositionalFileController {
 
     this.renderTextOnNode(finalResult, this.contentDivId, false);
   }
+
+  teste2() {
+    alert('Funcionou!!!');
+  }
 }
 
 ipcRenderer.on('fileUpload', (event, data) => {
-  positionalFileControler = new PositionalFileController(data[0]);
+  window.positionalFileControler = new PositionalFileController(data[0]);
 });
 
 ipcRenderer.on('resetZoomAction', (event, data) => {
@@ -64,4 +66,8 @@ ipcRenderer.on('zoomOutAction', (event, data) => {
   const style = window.getComputedStyle(fileContentNode, null).getPropertyValue('font-size');
   const currentSize = parseFloat(style);
   fileContentNode.style.fontSize = `${(currentSize - 4)}px`;
+});
+
+ipcRenderer.on('addNewRuleAction', (event, data) => {
+  $('#exampleModal').modal();
 });

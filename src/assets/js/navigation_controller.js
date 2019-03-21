@@ -63,4 +63,4 @@ class NavigationController {
   }
 }
 
-const navigationController = new NavigationController();
+window.navigationController = new NavigationController();

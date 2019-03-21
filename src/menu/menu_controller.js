@@ -11,6 +11,7 @@ class MenuController {
     Menu.getApplicationMenu().getMenuItemById('resetZoomActionMenuItemId').enabled = false;
     Menu.getApplicationMenu().getMenuItemById('zoomInActionMenuItemId').enabled = false;
     Menu.getApplicationMenu().getMenuItemById('zoomOutActionMenuItemId').enabled = false;
+    Menu.getApplicationMenu().getMenuItemById('addNewRuleMenuItemId').enabled = false;
   }
 
   uploadFileAction(browserWindow) {
@@ -21,7 +22,13 @@ class MenuController {
       Menu.getApplicationMenu().getMenuItemById('resetZoomActionMenuItemId').enabled = true;
       Menu.getApplicationMenu().getMenuItemById('zoomInActionMenuItemId').enabled = true;
       Menu.getApplicationMenu().getMenuItemById('zoomOutActionMenuItemId').enabled = true;
+      Menu.getApplicationMenu().getMenuItemById('addNewRuleMenuItemId').enabled = true;
     }
+  }
+
+  addNewRuleAction(browserWindow) {
+    browserWindow.webContents.send('addNewRuleAction');
+    console.log('addNewRuleAction');
   }
 
   aboutAction(browserWindow) {
