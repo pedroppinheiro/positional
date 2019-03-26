@@ -20,33 +20,29 @@
             </button>
           </div>
           <div class="modal-body">
-            <form>
+            <form id="newFieldForm" method="POST">
               <div class="form-group">
-                <label for="recipient-name" class="col-form-label">Name:</label>
-                <input type="text" class="form-control" id="recipient-name">
+                <label for="name" class="col-form-label">Name:</label>
+                <input type="text" required class="form-control" id="name" name="name"/>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  <label for="message-text" class="col-form-label">Initial Position:</label>
-                  <input type="number" class="form-control" id="recipient-name" min="1" max="9999">
+                  <label for="initialPosition" class="col-form-label">Initial Position:</label>
+                  <input type="number" required class="form-control" id="initialPosition" min="1" max="9999" name="initialPosition">
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="message-text" class="col-form-label">Final Position:</label>
-                  <input type="number" class="form-control" id="recipient-name" min="2" max="9999">
+                  <label for="finalPosition" class="col-form-label">Final Position:</label>
+                  <input type="number" required class="form-control" id="finalPosition" min="2" max="9999" name="finalPosition">
                 </div>
-              </div>
-              <div class="form-group">
-                <label for="message-text" class="col-form-label">Size:</label>
-                <input type="number" class="form-control" id="recipient-name" min="0" max="9999">
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  <label for="message-text" class="col-form-label">Initial line:</label>
-                  <input type="number" class="form-control" id="recipient-name" min="0" max="9999">
+                  <label for="initialLine" class="col-form-label">Initial line:</label>
+                  <input type="number" class="form-control" id="initialLine" min="0" max="9999" name="initialLine">
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="message-text" class="col-form-label">End line:</label>
-                  <input type="number" class="form-control" id="recipient-name" min="0" max="9999">
+                  <label for="endLine" class="col-form-label">End line:</label>
+                  <input type="number" class="form-control" id="endLine" min="0" max="9999" name="endLine">
                 </div>
               </div>
             </form>
