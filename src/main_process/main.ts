@@ -1,22 +1,27 @@
-// Modules to control application life and create native browser window
-const { app, BrowserWindow, Menu } = require('electron'); // https://electronjs.org/docs/api/remote
+import { app, BrowserWindow, MenuItemConstructorOptions, Menu } from 'electron';
+import menuTemplate from './menu/menuTemplate';
+import * as path from 'path';
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow = null;
+let mainWindow: Electron.BrowserWindow;
 
 function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 1024,
     height: 650,
     webPreferences: {
       nodeIntegration: true,
     },
+    width: 1024,
   });
 
+  // file:///home/pedro/Documentos/positional/dist/renderer_process/pages/index.html
+
   // mainWindow.loadURL(`file://${__dirname}/main.html`);
-  mainWindow.loadFile('src/index.html');
+  // mainWindow.loadFile(require('../renderer_process/pages/index.html'));
+
+  mainWindow.loadFile(path.join(__dirname, '../renderer_process/pages/index.html'));
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
@@ -30,12 +35,12 @@ function createWindow() {
   });
 }
 
-function buildMenu(template) {
+function buildMenu(template: MenuItemConstructorOptions[]) {
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
 }
 
-buildMenu(require('./menu/menu_template'));
+buildMenu(menuTemplate);
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

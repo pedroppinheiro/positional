@@ -1,5 +1,14 @@
 class Field {
-  constructor(name, initialPosition, finalPosition, startingLine = null, endLine = null) {
+
+  name :string;
+  initialPosition: number;
+  finalPosition: number;
+  size: number;
+  startingLine: number;
+  endLine: number;
+
+  constructor(name: string, initialPosition: number, finalPosition: number,
+              startingLine: number = null, endLine: number = null) {
     this.name = name;
     this.initialPosition = initialPosition;
     this.finalPosition = finalPosition;

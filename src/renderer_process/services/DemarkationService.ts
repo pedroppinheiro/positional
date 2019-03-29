@@ -1,4 +1,4 @@
-class DemarkationService {
+export default class DemarkationService {
   /**
    * Receives a field object and based on its position and name, it marks on the text
    * as a span.
@@ -9,15 +9,15 @@ class DemarkationService {
    *     finalPosition: 17,
    *   }
    */
-  static demarkFieldOnText(field, text) {
+  static demarkFieldOnText(field: Field, text: string) {
     const firstPart = text.substring(0, field.initialPosition - 1);
     const middlePart = text.substring(field.initialPosition - 1, field.finalPosition - 1);
-    const finalPart = text.substring(field.finalPosition - 1, text.lenth);
+    const finalPart = text.substring(field.finalPosition - 1, text.length);
 
-    const stringTemplate = `${firstPart}<span class="${field.name}">${middlePart}</span>${finalPart}`;
+    const stringTemplate = `${firstPart}` +
+                           `<span class="${field.name}">${middlePart}</span>` +
+                           `${finalPart}`;
 
     return stringTemplate;
   }
 }
-
-module.exports = DemarkationService;

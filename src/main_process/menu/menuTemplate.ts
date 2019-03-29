@@ -1,21 +1,25 @@
-const MenuController = require('./menu_controller');
+import { BrowserWindow, MenuItem, MenuItemConstructorOptions } from 'electron';
+import MenuController from './MenuController';
 
 const menuController = new MenuController();
 // the menu template must be an array
-const menuTemplate = [
-
+const menuTemplate: MenuItemConstructorOptions[] = [
   {
     label: 'File',
     submenu: [
       {
         label: 'Welcome page',
-        click(menuItem, browserWindow) { menuController.welcomePageAction(browserWindow); },
+        click(menuItem: MenuItem, browserWindow: BrowserWindow) {
+          menuController.welcomePageAction(browserWindow);
+        },
       },
       { type: 'separator' },
       {
         label: 'Upload File',
         accelerator: 'Control+o',
-        click(menuItem, browserWindow) { menuController.uploadFileAction(browserWindow); },
+        click(menuItem: MenuItem, browserWindow: BrowserWindow) {
+          menuController.uploadFileAction(browserWindow);
+        },
       },
       { type: 'separator' },
       {
@@ -23,7 +27,9 @@ const menuTemplate = [
         label: 'Add New Field',
         enabled: false,
         accelerator: 'Control+n',
-        click(menuItem, browserWindow) { menuController.addNewRuleAction(browserWindow); },
+        click(menuItem: MenuItem, browserWindow: BrowserWindow) {
+          menuController.addNewRuleAction(browserWindow);
+        },
       },
       { type: 'separator' },
       { role: 'quit' },
@@ -48,8 +54,6 @@ const menuTemplate = [
   {
     label: 'View',
     submenu: [
-      // { role: 'reload' },
-      // { role: 'forcereload' },
       { role: 'toggledevtools' },
       { type: 'separator' },
       {
@@ -57,21 +61,27 @@ const menuTemplate = [
         label: 'Actual Size',
         accelerator: 'Control+0',
         enabled: false,
-        click(menuItem, browserWindow) { menuController.resetZoomAction(browserWindow); },
+        click(menuItem: MenuItem, browserWindow: BrowserWindow) {
+          menuController.resetZoomAction(browserWindow);
+        },
       },
       {
         id: 'zoomInActionMenuItemId',
         label: 'Zoom In',
         accelerator: 'Control+Plus',
         enabled: false,
-        click(menuItem, browserWindow) { menuController.zoomInAction(browserWindow); },
+        click(menuItem: MenuItem, browserWindow: BrowserWindow) {
+          menuController.zoomInAction(browserWindow);
+        },
       },
       {
         id: 'zoomOutActionMenuItemId',
         label: 'Zoom Out',
         accelerator: 'Control+-',
         enabled: false,
-        click(menuItem, browserWindow) { menuController.zoomOutAction(browserWindow); },
+        click(menuItem: MenuItem, browserWindow: BrowserWindow) {
+          menuController.zoomOutAction(browserWindow);
+        },
       },
       { type: 'separator' },
       { role: 'togglefullscreen' },
@@ -83,7 +93,9 @@ const menuTemplate = [
     submenu: [
       {
         label: 'About',
-        click(menuItem, browserWindow) { menuController.aboutAction(browserWindow); },
+        click(menuItem: MenuItem, browserWindow: BrowserWindow) {
+          menuController.aboutAction(browserWindow);
+        },
       },
       {
         label: 'Github Page',
@@ -97,4 +109,4 @@ const menuTemplate = [
   },
 ];
 
-module.exports = menuTemplate;
+export default menuTemplate;

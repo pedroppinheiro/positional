@@ -1,6 +1,10 @@
-const { BrowserWindow } = require('electron');
+import { BrowserWindow, BrowserWindowConstructorOptions } from 'electron';
+import * as path from 'path';
 
-class AboutPageController {
+export default class AboutController {
+  aboutPageWindowOptions: BrowserWindowConstructorOptions;
+  aboutPageWindow: BrowserWindow;
+
   constructor() {
     this.aboutPageWindowOptions = {
       width: 400,
@@ -15,10 +19,12 @@ class AboutPageController {
     };
   }
 
-  renderAboutPage(browserWindow) {
+  renderAboutPage(browserWindow: BrowserWindow) {
     this.aboutPageWindowOptions.parent = browserWindow;
     this.aboutPageWindow = new BrowserWindow(this.aboutPageWindowOptions);
-    this.aboutPageWindow.loadFile('src/about_page/about_page.html');
+    this.aboutPageWindow.loadFile(
+        path.join(__dirname, '../../renderer_process/pages/about_page.html'),
+    );
 
     this.aboutPageWindow.on('closed', () => {
       this.aboutPageWindow = null;
@@ -29,5 +35,3 @@ class AboutPageController {
     });
   }
 }
-
-module.exports = AboutPageController;
