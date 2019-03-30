@@ -17,7 +17,7 @@ function deleteFolderRecursive(path: string) {
     console.log(`Deleting directory "${path}"...`);
     fs.rmdirSync(path);
   }
-};
+}
 
 console.log('Cleaning "dist"...');
 deleteFolderRecursive(`${__dirname}/dist`);

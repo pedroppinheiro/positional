@@ -1,7 +1,7 @@
 import { ipcRenderer } from 'electron';
 import * as fs from 'fs';
 import DemarkationService from '../services/DemarkationService';
-import { SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION } from 'constants';
+import Field from '../models/Field';
 
 class PositionalFileController {
 
