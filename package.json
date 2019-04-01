@@ -29,7 +29,7 @@
   "scripts": {
     "clean-ts": "ts-node cleanDist.ts",
     "clean": "rm -rf dist/*",
-    "build": "npm run tslint && npm run less && npm run clean-ts && tsc && npm run copy-static-assets",
+    "build": "npm run less && npm run clean-ts && tsc && npm run copy-static-assets",
     "watch": "tsc -w",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
     "less": "lessc src/renderer_process/assets/css/main.less src/renderer_process/assets/css/main.css",

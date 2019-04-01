@@ -27,4 +27,22 @@ describe('Field demarcation should apply <span> tag', () => {
     const result = DemarkationService.demarkFieldOnText(field, text);
     expect(result).toBe('<span class="myField">thequickbrownfoxjumpsoverthelazydog</span>');
   });
+
+  it('does not demark when there is no value', () => {
+    const field: Field = new Field('myField', 1, 0);
+    const result = DemarkationService.demarkFieldOnText(field, text);
+    expect(result).toBe('thequickbrownfoxjumpsoverthelazydog');
+  });
+
+  it('does not demark when the end of the string is reached', () => {
+    const field: Field = new Field('myField', 36, 1);
+    const result = DemarkationService.demarkFieldOnText(field, text);
+    expect(result).toBe('thequickbrownfoxjumpsoverthelazydog');
+  });
+
+  it('demarks correctly when the field exceeds the string lenght', () => {
+    const field: Field = new Field('myField', 33, 999);
+    const result = DemarkationService.demarkFieldOnText(field, text);
+    expect(result).toBe('thequickbrownfoxjumpsoverthelazy<span class="myField">dog</span>');
+  });
 });

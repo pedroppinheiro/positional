@@ -12,14 +12,13 @@ class PositionalFileController {
     this.fileContent = this.readFileContent(filePath);
     this.contentDivId = document.getElementById('file_content');
     this.renderTextOnNode(this.fileContent, this.contentDivId);
-    this.teste();
   }
 
   readFileContent(filePath: string) {
     return fs.readFileSync(filePath, { encoding: 'utf-8' });
   }
 
-  renderTextOnNode(text: string, node: HTMLElement, shouldEscapeText = true) {
+  renderTextOnNode(text: string, node: HTMLElement, shouldEscapeText = true): void {
     if (shouldEscapeText) {
       node.textContent = text;
     } else {
@@ -27,19 +26,23 @@ class PositionalFileController {
     }
   }
 
-  teste() {
+  createField() {
+    const formData = $('#newFieldForm').serializeArray();
+
+    const field: Field = new Field(formData[0].value,
+                                   parseInt(formData[1].value, 10),
+                                   parseInt(formData[2].value, 10));
+    this.demarkField(field);
+    ($('#exampleModal') as any).modal('hide');
+  }
+
+  demarkField(field: Field) {
     let finalResult = '';
 
     this.fileContent.split('\n').forEach((line) => {
-      const newField: Field = new Field('myField', 14, 17);
-      finalResult += `${DemarkationService.demarkFieldOnText(newField, line)}\n`;
+      finalResult += `${DemarkationService.demarkFieldOnText(field, line)}\n`;
     });
-
     this.renderTextOnNode(finalResult, this.contentDivId, false);
-  }
-
-  teste2() {
-    alert('Funcionou!!!');
   }
 }
 
