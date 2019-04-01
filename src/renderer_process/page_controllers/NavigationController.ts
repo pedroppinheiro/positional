@@ -3,9 +3,17 @@
  * Its logic was based on the code presented in this tutorial:
  *     https://www.christianengvall.se/electron-app-navigation/
  */
-const { ipcRenderer } = require('electron');
+import { ipcRenderer } from 'electron';
 
-class NavigationController {
+interface NavigationConstants {
+  sectionTemplate: string;
+  contentContainer: string;
+  startSection: string;
+}
+
+export default class NavigationController {
+  constants: NavigationConstants;
+
   constructor() {
     this.constants = {
       sectionTemplate: '.section_template',
@@ -15,7 +23,7 @@ class NavigationController {
     this.importSectionsToDOM();
     this.showStartSection();
 
-    ipcRenderer.on('renderPage', (event, sectionId) => {
+    ipcRenderer.on('renderPage', (event: Electron.Event, sectionId: string) => {
       this.showSection(sectionId);
     });
   }
@@ -23,13 +31,13 @@ class NavigationController {
   importSectionsToDOM() {
     const links = document.querySelectorAll('link[rel="import"]');
     links.forEach((link) => {
-      const template = link.import.querySelector(this.constants.sectionTemplate);
+      const template = (link as any).import.querySelector(this.constants.sectionTemplate);
       const clone = document.importNode(template.content, true);
       document.querySelector(this.constants.contentContainer).appendChild(clone);
     });
   }
 
-  showSection(sectionId) {
+  showSection(sectionId: string) {
     if (!sectionId) {
       console.error('No sectionId defined');
       return;
@@ -37,7 +45,7 @@ class NavigationController {
 
     this.hideAllSections();
 
-    let section = null;
+    let section: HTMLElement = null;
     if (sectionId.startsWith('#')) {
       section = document.querySelector(sectionId);
     } else {
@@ -53,7 +61,7 @@ class NavigationController {
 
   hideAllSections() {
     const sectionList = document.querySelectorAll(`${this.constants.contentContainer} section`);
-    sectionList.forEach((section) => {
+    sectionList.forEach((section: HTMLElement) => {
       section.style.display = 'none';
     });
   }
@@ -63,4 +71,4 @@ class NavigationController {
   }
 }
 
-window.navigationController = new NavigationController();
+(window as any).navigationController = new NavigationController();

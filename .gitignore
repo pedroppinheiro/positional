@@ -65,3 +65,6 @@ typings/
 
 # Ignoring the main.css cause it is only important during compilation time of main.less
 main.css
+
+# TypeScript compilation folder
+dist

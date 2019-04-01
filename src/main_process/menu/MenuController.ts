@@ -1,12 +1,15 @@
-const { shell, dialog, Menu } = require('electron');
-const AboutPageController = require('../about_page/about_page_controller');
+import { shell, dialog, Menu, BrowserWindow } from 'electron';
+import AboutController from '../about_window/AboutController';
 
-class MenuController {
+export default class MenuController {
+
+  aboutController: AboutController;
+
   constructor() {
-    this.aboutPageController = new AboutPageController();
+    this.aboutController = new AboutController();
   }
 
-  welcomePageAction(browserWindow) {
+  welcomePageAction(browserWindow: BrowserWindow) {
     browserWindow.webContents.send('renderPage', 'welcome_page_section');
     Menu.getApplicationMenu().getMenuItemById('resetZoomActionMenuItemId').enabled = false;
     Menu.getApplicationMenu().getMenuItemById('zoomInActionMenuItemId').enabled = false;
@@ -14,7 +17,7 @@ class MenuController {
     Menu.getApplicationMenu().getMenuItemById('addNewRuleMenuItemId').enabled = false;
   }
 
-  uploadFileAction(browserWindow) {
+  uploadFileAction(browserWindow: BrowserWindow) {
     const filePath = dialog.showOpenDialog(browserWindow, { title: 'Select a positional file' });
     if (filePath) {
       browserWindow.webContents.send('renderPage', 'positional_file_section');
@@ -26,13 +29,13 @@ class MenuController {
     }
   }
 
-  addNewRuleAction(browserWindow) {
+  addNewRuleAction(browserWindow: BrowserWindow) {
     browserWindow.webContents.send('addNewRuleAction');
     console.log('addNewRuleAction');
   }
 
-  aboutAction(browserWindow) {
-    this.aboutPageController.renderAboutPage(browserWindow);
+  aboutAction(browserWindow: BrowserWindow) {
+    this.aboutController.renderAboutPage(browserWindow);
   }
 
   githubPageAction() {
@@ -43,20 +46,18 @@ class MenuController {
     shell.openExternal('https://github.com/pedroppinheiro/positional/blob/master/README.md');
   }
 
-  resetZoomAction(browserWindow) {
+  resetZoomAction(browserWindow: BrowserWindow) {
     browserWindow.webContents.send('resetZoomAction');
     console.log('resetZoomAction');
   }
 
-  zoomInAction(browserWindow) {
+  zoomInAction(browserWindow: BrowserWindow) {
     browserWindow.webContents.send('zoomInAction');
     console.log('zoomInAction');
   }
 
-  zoomOutAction(browserWindow) {
+  zoomOutAction(browserWindow: BrowserWindow) {
     browserWindow.webContents.send('zoomOutAction');
     console.log('zoomOutAction');
   }
 }
-
-module.exports = MenuController;

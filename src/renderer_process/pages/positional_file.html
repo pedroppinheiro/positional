@@ -9,12 +9,12 @@
     -->
     <div id="file_content"></div>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="newFieldModal" tabindex="-1" role="dialog" aria-labelledby="newFieldModalLabel"
       aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">New Field</h5>
+            <h5 class="modal-title" id="newFieldModalLabel">New Field</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -31,25 +31,15 @@
                   <input type="number" required class="form-control" id="initialPosition" min="1" max="9999" name="initialPosition">
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="finalPosition" class="col-form-label">Final Position:</label>
-                  <input type="number" required class="form-control" id="finalPosition" min="2" max="9999" name="finalPosition">
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="initialLine" class="col-form-label">Initial line:</label>
-                  <input type="number" class="form-control" id="initialLine" min="0" max="9999" name="initialLine">
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="endLine" class="col-form-label">End line:</label>
-                  <input type="number" class="form-control" id="endLine" min="0" max="9999" name="endLine">
+                  <label for="size" class="col-form-label">Size:</label>
+                  <input type="number" required class="form-control" id="size" min="2" max="99999" name="size">
                 </div>
               </div>
             </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary" onclick="positionalFileControler.teste2()">Create field</button>
+            <button type="button" class="btn btn-primary" onclick="positionalFileControler.createField()">Create field</button>
           </div>
         </div>
       </div>
