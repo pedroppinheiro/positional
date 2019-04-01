@@ -33,7 +33,7 @@ class PositionalFileController {
                                    parseInt(formData[1].value, 10),
                                    parseInt(formData[2].value, 10));
     this.demarkField(field);
-    ($('#exampleModal') as any).modal('hide');
+    ($('#newFieldModal') as any).modal('hide');
   }
 
   demarkField(field: Field) {
@@ -43,6 +43,10 @@ class PositionalFileController {
       finalResult += `${DemarkationService.demarkFieldOnText(field, line)}\n`;
     });
     this.renderTextOnNode(finalResult, this.contentDivId, false);
+  }
+
+  cleanModalFields() {
+    (document.getElementById('newFieldForm') as HTMLFormElement).reset();
   }
 }
 
@@ -71,5 +75,9 @@ ipcRenderer.on('zoomOutAction', (event: Electron.Event, data: any) => {
 });
 
 ipcRenderer.on('addNewRuleAction', (event: Electron.Event, data: any) => {
-  ($('#exampleModal') as any).modal();
+  ($('#newFieldModal') as any).modal();
+});
+
+$('#positional_file_section').on('hidden.bs.modal', '#newFieldModal', (e) => {
+  (window as any).positionalFileControler.cleanModalFields();
 });
