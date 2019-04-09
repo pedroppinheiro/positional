@@ -29,9 +29,12 @@ class PositionalFileController {
   createField() {
     const formData = $('#newFieldForm').serializeArray();
 
-    const field: Field = new Field(formData[0].value,
-                                   parseInt(formData[1].value, 10),
-                                   parseInt(formData[2].value, 10));
+    const field: Field = new Field(
+      formData[0].value,
+      parseInt(formData[1].value, 10),
+      parseInt(formData[2].value, 10),
+      formData[3].value,
+    );
     this.demarkField(field);
     ($('#newFieldModal') as any).modal('hide');
   }
