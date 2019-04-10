@@ -22,7 +22,7 @@ export default class DemarkationService {
     const colorStyleAttribute = `style="color: ${field.color}"`;
 
     const stringTemplate = `${firstPart}` +
-                           `<span ${classAttribute} ${colorStyleAttribute}>${middlePart}</span>` +
+                           `<mark ${classAttribute} ${colorStyleAttribute}>${middlePart}</mark>` +
                            `${finalPart}`;
 
     return stringTemplate;

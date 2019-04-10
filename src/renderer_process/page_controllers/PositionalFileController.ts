@@ -2,27 +2,91 @@ import { ipcRenderer } from 'electron';
 import * as fs from 'fs';
 import DemarkationService from '../services/DemarkationService';
 import Field from '../models/Field';
+import * as es from 'event-stream';
 
 class PositionalFileController {
 
-  fileContent: string;
-  contentDivId: HTMLElement;
+  MAXIMUM_FILE_LINE = 500;
+  CONTENT_HTML_ELEMENT = 'file_content';
+  // fileContent: string;
+  filePath: string;
+  contentHTMLElement: HTMLElement;
+  contentLineNumber: number;
 
   constructor(filePath: string) {
-    this.fileContent = this.readFileContent(filePath);
-    this.contentDivId = document.getElementById('file_content');
-    this.renderTextOnNode(this.fileContent, this.contentDivId);
+    this.filePath = filePath;
+    this.contentHTMLElement = document.getElementById(this.CONTENT_HTML_ELEMENT);
+    this.readFileContent((line) => {
+      const lineBreak = '\n';
+      this.appendTextOnNode(`${line}${line ? lineBreak : ''}`, this.contentHTMLElement, false);
+    });
   }
 
-  readFileContent(filePath: string) {
-    return fs.readFileSync(filePath, { encoding: 'utf-8' });
+  readFileContent(processText: (line: string) => void): void {
+    this.clearLineNumbers();
+    this.setTextOnNode('', this.contentHTMLElement);
+    this.contentLineNumber = 0;
+
+    const s = fs.createReadStream(this.filePath)
+              .pipe(es.split())
+              .pipe(es.mapSync((line: string) => {
+      // pause the readstream
+      s.pause();
+      if (this.contentLineNumber  === this.MAXIMUM_FILE_LINE) {
+        s.end();
+      }
+      processText(line);
+      this.contentLineNumber  += 1;
+      // resume the readstream, possibly from a callback
+      s.resume();
+    })
+    .on('error', (err) => {
+      console.log('Error while reading file.', err);
+    })
+    .on('end', () => {
+      console.log('Successfully read the file.');
+      this.createLineNumbers();
+    }));
   }
 
-  renderTextOnNode(text: string, node: HTMLElement, shouldEscapeText = true): void {
+  /**
+   * Inspired by https://jsfiddle.net/q9tuoh4k/
+   */
+  createLineNumbers() {
+    const pre = document.getElementsByTagName('pre')[0];
+    let lineNum: Element;
+
+    const span = document.createElement('span');
+    span.setAttribute('class', 'line-number');
+    pre.prepend(span);
+
+    for (let i = 0; i < this.contentLineNumber; i = i + 1) {
+      lineNum = pre.getElementsByClassName('line-number')[0];
+      lineNum.innerHTML += `<span> ${(i + 1)} </span>`;
+    }
+  }
+
+  clearLineNumbers() {
+    const pre = document.getElementsByTagName('pre')[0];
+    const lineNumbers = pre.getElementsByClassName('line-number')[0];
+    if (lineNumbers) {
+      lineNumbers.remove();
+    }
+  }
+
+  setTextOnNode(text: string, node: HTMLElement, shouldEscapeText = true): void {
     if (shouldEscapeText) {
       node.textContent = text;
     } else {
       node.innerHTML = text;
+    }
+  }
+
+  appendTextOnNode(text: string, node: HTMLElement, shouldEscapeText = true): void {
+    if (shouldEscapeText) {
+      node.textContent += text;
+    } else {
+      node.innerHTML += text;
     }
   }
 
@@ -40,12 +104,17 @@ class PositionalFileController {
   }
 
   demarkField(field: Field) {
-    let finalResult = '';
+    // let finalResult = '';
 
-    this.fileContent.split('\n').forEach((line) => {
-      finalResult += `${DemarkationService.demarkFieldOnText(field, line)}\n`;
+    // this.fileContent.split('\n').forEach((line) => {
+    //   finalResult += `${DemarkationService.demarkFieldOnText(field, line)}\n`;
+    // });
+
+    this.readFileContent((line) => {
+      const finalResult = `${DemarkationService.demarkFieldOnText(field, line)}\n`;
+      this.appendTextOnNode(finalResult, this.contentHTMLElement, false);
     });
-    this.renderTextOnNode(finalResult, this.contentDivId, false);
+    // this.setTextOnNode(finalResult, this.contentHTMLElement, false);
   }
 
   cleanModalFields() {

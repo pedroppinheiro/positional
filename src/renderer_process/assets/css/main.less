@@ -16,16 +16,38 @@ html, body, main, section {
 }
 
 #positional_file_section {
-  #file_content {
+  #container {
     font-family: 'Courier New', Courier, monospace;
     font-size: var(--default-file-content-font-size);
-    white-space: pre;
-    overflow-x: scroll;
-    overflow-y: visible;
     height: 100%;
     padding: 4px;
+    counter-reset: line;
 
-    span {
+    // overflow-x: scroll;
+    // overflow-y: visible;
+    overflow-x: hidden;
+    overflow-y: hidden;
+
+    pre {
+      height: 100%;
+
+      .line-number {
+        display:block;
+        color: #b0b1ca;
+        // font:normal normal 12px/14px "Courier New",Courier,Monospace;
+        float:left;
+        margin:0 1em 0 -1em;
+        border-right:1px solid;
+        text-align:right;
+
+        span {
+          display:block;
+          padding:0 .5em 0 1em;
+        }
+      }
+    }
+
+    mark {
       color: purple;
       border-left: 2px solid black;
       border-right: 2px solid black;
