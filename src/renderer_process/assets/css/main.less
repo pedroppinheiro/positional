@@ -16,7 +16,7 @@ html, body, main, section {
 }
 
 #positional_file_section {
-  #container {
+  #file_container {
     font-family: 'Courier New', Courier, monospace;
     font-size: var(--default-file-content-font-size);
     height: 100%;
@@ -31,6 +31,10 @@ html, body, main, section {
     pre {
       height: 100%;
 
+      #file_content {
+        font-size: inherit;
+      }
+
       .line-number {
         display:block;
         color: #b0b1ca;
@@ -39,6 +43,7 @@ html, body, main, section {
         margin:0 1em 0 -1em;
         border-right:1px solid;
         text-align:right;
+        font-size: inherit;
 
         span {
           display:block;

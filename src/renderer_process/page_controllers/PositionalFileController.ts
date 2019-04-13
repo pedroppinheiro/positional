@@ -8,14 +8,17 @@ class PositionalFileController {
 
   MAXIMUM_FILE_LINE = 500;
   CONTENT_HTML_ELEMENT = 'file_content';
+  FILE_CONTAINER = 'file_container';
   // fileContent: string;
   filePath: string;
   contentHTMLElement: HTMLElement;
+  mainContainerHTMLElement: HTMLElement;
   contentLineNumber: number;
 
   constructor(filePath: string) {
     this.filePath = filePath;
     this.contentHTMLElement = document.getElementById(this.CONTENT_HTML_ELEMENT);
+    this.mainContainerHTMLElement = document.getElementById(this.FILE_CONTAINER);
     this.readFileContent((line) => {
       const lineBreak = '\n';
       this.appendTextOnNode(`${line}${line ? lineBreak : ''}`, this.contentHTMLElement, false);
@@ -120,6 +123,27 @@ class PositionalFileController {
   cleanModalFields() {
     (document.getElementById('newFieldForm') as HTMLFormElement).reset();
   }
+
+  resetMainContainerFontSize() {
+    this.mainContainerHTMLElement.style.fontSize = window
+                                        .getComputedStyle(document.body)
+                                        .getPropertyValue('--default-file-content-font-size');
+  }
+
+  increaseMainContainerFontSize() {
+    this.addMainContainerFontSize(4);
+  }
+
+  decreaseMainContainerFontSize() {
+    this.addMainContainerFontSize(-4);
+  }
+
+  addMainContainerFontSize(size: number) {
+    const style = window.getComputedStyle(this.mainContainerHTMLElement, null)
+                        .getPropertyValue('font-size');
+    const currentSize = parseFloat(style);
+    this.mainContainerHTMLElement.style.fontSize = `${(currentSize + size)}px`;
+  }
 }
 
 ipcRenderer.on('fileUpload', (event: Electron.Event, data: any) => {
@@ -127,23 +151,15 @@ ipcRenderer.on('fileUpload', (event: Electron.Event, data: any) => {
 });
 
 ipcRenderer.on('resetZoomAction', (event: Electron.Event, data: any) => {
-  const fileContentNode = document.getElementById('file_content');
-  fileContentNode.style.fontSize = window.getComputedStyle(document.body)
-                                         .getPropertyValue('--default-file-content-font-size');
+  (window as any).positionalFileControler.resetMainContainerFontSize();
 });
 
 ipcRenderer.on('zoomInAction', (event: Electron.Event, data: any) => {
-  const fileContentNode = document.getElementById('file_content');
-  const style = window.getComputedStyle(fileContentNode, null).getPropertyValue('font-size');
-  const currentSize = parseFloat(style);
-  fileContentNode.style.fontSize = `${(currentSize + 4)}px`;
+  (window as any).positionalFileControler.increaseMainContainerFontSize();
 });
 
 ipcRenderer.on('zoomOutAction', (event: Electron.Event, data: any) => {
-  const fileContentNode = document.getElementById('file_content');
-  const style = window.getComputedStyle(fileContentNode, null).getPropertyValue('font-size');
-  const currentSize = parseFloat(style);
-  fileContentNode.style.fontSize = `${(currentSize - 4)}px`;
+  (window as any).positionalFileControler.decreaseMainContainerFontSize();
 });
 
 ipcRenderer.on('addNewRuleAction', (event: Electron.Event, data: any) => {
