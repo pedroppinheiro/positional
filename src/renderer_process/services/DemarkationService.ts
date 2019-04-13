@@ -19,10 +19,10 @@ export default class DemarkationService {
     const finalPart = text.substring(finalPosition, text.length);
 
     const classAttribute = `class="${field.name}"`;
-    const colorStyleAttribute = `style="color: ${field.color}"`;
+    const colorStyleAttribute = field.color ? ` style="color: ${field.color}"` : '';
 
     const stringTemplate = `${firstPart}` +
-                           `<mark ${classAttribute} ${colorStyleAttribute}>${middlePart}</mark>` +
+                           `<mark ${classAttribute}${colorStyleAttribute}>${middlePart}</mark>` +
                            `${finalPart}`;
 
     return stringTemplate;
