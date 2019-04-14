@@ -1,6 +1,6 @@
 import { ipcRenderer } from 'electron';
 import * as fs from 'fs';
-import DemarkationService from '../services/DemarkationService';
+import MarkService from '../services/MarkService';
 import Field from '../models/Field';
 import * as es from 'event-stream';
 
@@ -15,6 +15,8 @@ class PositionalFileController {
   mainContainerHTMLElement: HTMLElement;
   contentLineNumber: number;
 
+  storedFields: Field[];
+
   constructor(filePath: string) {
     this.filePath = filePath;
     this.contentHTMLElement = document.getElementById(this.CONTENT_HTML_ELEMENT);
@@ -23,6 +25,7 @@ class PositionalFileController {
       const lineBreak = '\n';
       this.appendTextOnNode(`${line}${line ? lineBreak : ''}`, this.contentHTMLElement, false);
     });
+    this.storedFields = [];
   }
 
   readFileContent(processText: (line: string) => void): void {
@@ -102,22 +105,21 @@ class PositionalFileController {
       parseInt(formData[2].value, 10),
       formData[3].value,
     );
-    this.demarkField(field);
+
+    this.storedFields.push(field);
+    this.markFields(this.storedFields);
     ($('#newFieldModal') as any).modal('hide');
   }
 
-  demarkField(field: Field) {
-    // let finalResult = '';
-
-    // this.fileContent.split('\n').forEach((line) => {
-    //   finalResult += `${DemarkationService.demarkFieldOnText(field, line)}\n`;
-    // });
-
+  markFields(fields: Field[]) {
     this.readFileContent((line) => {
-      const finalResult = `${DemarkationService.demarkFieldOnText(field, line)}\n`;
+      let finalResult = '';
+      // for (const field of fields) {
+      finalResult = `${MarkService.markFieldsOnText(fields, line)}`;
+      // }
+      finalResult += '\n';
       this.appendTextOnNode(finalResult, this.contentHTMLElement, false);
     });
-    // this.setTextOnNode(finalResult, this.contentHTMLElement, false);
   }
 
   cleanModalFields() {
