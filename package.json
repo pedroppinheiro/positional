@@ -4,7 +4,7 @@
   "description": "Making it easy to work with positional flat files.",
   "main": "dist/main_process/main.js",
   "bin": {
-    "positional": "npm start"
+    "positional": "./testingnpx.js"
   },
   "dependencies": {
     "@types/jquery": "^3.3.29",
