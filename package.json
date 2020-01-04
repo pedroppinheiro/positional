@@ -5,7 +5,7 @@
   "main": "dist/main_process/main.js",
   "bin": {
     "positional": "npm start"
-  }
+  },
   "dependencies": {
     "@types/jquery": "^3.3.29",
     "bootstrap": "^4.3.1",
