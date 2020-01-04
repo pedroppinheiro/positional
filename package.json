@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Making it easy to work with positional flat files.",
   "main": "dist/main_process/main.js",
+  "bin": {
+    "positional": "npm start"
+  }
   "dependencies": {
     "@types/jquery": "^3.3.29",
     "bootstrap": "^4.3.1",
