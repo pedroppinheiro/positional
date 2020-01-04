@@ -3,10 +3,12 @@
   Making it easy to work with positional flat files
 
 ### To run the app:
-
-  npm install
   
-  npm start
+  npx https://github.com/pedroppinheiro/positional
+
+  or
+
+  Clone the repository and then run "npm install && npm start"
 
 ### To build the app:
 
