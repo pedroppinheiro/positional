@@ -1,8 +1,11 @@
 #!/usr/bin/env node
 
-import {series} from 'async';
-const {exec} = require('child_process');
+const { exec } = require('child_process');
 
-series([
- exec('npm start')
-]); 
+exec('npm start', (err, stdout, stderr) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+  console.log(stdout);
+});
