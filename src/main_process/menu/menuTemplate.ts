@@ -47,14 +47,14 @@ const menuTemplate: MenuItemConstructorOptions[] = [
       { role: 'paste' },
       { role: 'delete' },
       { type: 'separator' },
-      { role: 'selectall' },
+      { role: 'selectAll' },
     ],
   },
 
   {
     label: 'View',
     submenu: [
-      { role: 'toggledevtools' },
+      { role: 'toggleDevTools' },
       { type: 'separator' },
       {
         id: 'resetZoomActionMenuItemId',
